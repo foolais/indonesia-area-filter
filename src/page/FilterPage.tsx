@@ -1,5 +1,6 @@
 import { useLoaderData, useSearchParams } from "react-router-dom";
 import Sidebar from "../components/Sidebar";
+import Header from "../components/Header";
 
 export type IProvince = {
   id: number;
@@ -24,6 +25,12 @@ export type IRegionLoaderData = {
   districts: IDistricts[];
 };
 
+export type IDataRegion = {
+  provinces: IProvince | null;
+  regencies: IRegencies | null;
+  districts: IDistricts | null;
+};
+
 export default function FilterPage() {
   const {
     provinces: provinceList,
@@ -43,6 +50,17 @@ export default function FilterPage() {
   const filteredDistrict = districtList.filter(
     (item) => item.regency_id === +regency
   );
+
+  const dataRegion: IDataRegion = {
+    provinces:
+      (provinceList.find((item) => item.id === +province) as IProvince) ?? null,
+    regencies:
+      (filteredRegency.find((item) => item.id === +regency) as IRegencies) ??
+      null,
+    districts:
+      (filteredDistrict.find((item) => item.id === +district) as IDistricts) ??
+      null,
+  };
 
   const handleProvinceChange = (value: string) => {
     setSearchParams((prev) => {
@@ -117,8 +135,8 @@ export default function FilterPage() {
         handleDistrictChange={handleDistrictChange}
         handleResetFilter={handleResetFilter}
       />
-      <div className="grid grid-rows-2">
-        <div>breadcrumb</div>
+      <div className="grid grid-rows-2 col-span-3">
+        <Header dataRegion={dataRegion} />
         <div>content</div>
       </div>
     </div>
