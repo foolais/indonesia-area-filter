@@ -1,6 +1,7 @@
 import { useLoaderData, useSearchParams } from "react-router-dom";
 import Sidebar from "../components/Sidebar";
 import Header from "../components/Header";
+import MainContent from "../components/MainContent";
 
 export type IProvince = {
   id: number;
@@ -135,9 +136,9 @@ export default function FilterPage() {
         handleDistrictChange={handleDistrictChange}
         handleResetFilter={handleResetFilter}
       />
-      <div className="grid grid-rows-2 col-span-3">
+      <div className="flex flex-col col-span-3">
         <Header dataRegion={dataRegion} />
-        <div>content</div>
+        <MainContent dataRegion={dataRegion} />
       </div>
     </div>
   );
