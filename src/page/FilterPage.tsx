@@ -66,7 +66,6 @@ export default function FilterPage() {
   const handleProvinceChange = (value: string) => {
     setSearchParams((prev) => {
       const params = new URLSearchParams(prev);
-      console.log({ params });
 
       if (value) {
         params.set("province", value);
